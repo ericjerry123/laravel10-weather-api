@@ -26,6 +26,12 @@ class WeatherController extends Controller
             'units' => 'metric',
         ]);
 
+        if ($response->status() === 404) {
+            return response()->json([
+                'error' => '找不到城市',
+            ], 404);
+        }
+
         $weatherData = $response->json();
 
         return response()->json([
