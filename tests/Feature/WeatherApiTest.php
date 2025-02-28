@@ -21,4 +21,14 @@ class WeatherApiTest extends TestCase
                 'description',
             ]);
     }
+
+    public function test_get_weather_data_for_invalid_city(): void
+    {
+        $response = $this->getJson('/api/weather?city=InvalidCity');
+
+        $response->assertStatus(404)
+            ->assertJson([
+                'error' => '找不到城市',
+            ]);
+    }
 }
